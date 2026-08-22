@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TourEdo - Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="auth-header">
+    <a href="index.html" class="home-link">← Back to Home</a>
+  </header>
+
+  <div class="auth-container">
+    <div class="auth-box">
+      <h1 class="logo">TourEdo</h1>
+      <h2>Welcome Back</h2>
+      <p>Login to continue your journey with TourEdo.</p>
+
+      <div id="form-message" style="display: none; padding: 10px; margin-bottom: 15px; border-radius: 4px;"></div>
+
+      <form class="auth-form">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="Enter your email" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password" required>
+
+        <div class="checkbox">
+          <input type="checkbox" id="remember">
+          <label for="remember">Remember me</label>
+        </div>
+
+        <button type="submit" class="signup-btn">Log In</button>
+      </form>
+
+      <div class="divider">or</div>
+      <button class="google-btn">Continue with Google</button>
+
+      <p class="switch"><a href="forgot.html">Forgot Password?</a></p>
+      <p class="switch">Don’t have an account? <a href="signup.html">Sign up</a></p>
+    </div>
+  </div>
+
+  <script>
+    const form = document.querySelector(".auth-form");
+    const messageBox = document.getElementById("form-message");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      if(email && password) {
+        messageBox.textContent = "✅ Logged in successfully (simulation).";
+        messageBox.className = "success";
+        messageBox.style.backgroundColor = "#e6f4ea"; // fallback green styling
+        messageBox.style.color = "#137333";
+        messageBox.style.display = "block";
+      } else {
+        messageBox.textContent = "❌ Please enter both email and password.";
+        messageBox.className = "error";
+        messageBox.style.backgroundColor = "#fce8e6"; // fallback red styling
+        messageBox.style.color = "#c5221f";
+        messageBox.style.display = "block";
+      }
+    });
+  </script>
+</body>
+</html>

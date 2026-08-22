@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TourEdo - Forgot Password</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="auth-header">
+  <a href="index.html" class="home-link">← Back to Home</a>
+</header>
+
+  <div class="auth-container">
+    <div class="auth-box">
+      <h1 class="logo">TourEdo</h1>
+      <h2>Forgot Password?</h2>
+      <p>No worries! Enter your email and we’ll send you a reset link.</p>
+
+      <form class="auth-form">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="Enter your email" required>
+
+        <button type="submit" class="signup-btn">Send Reset Link</button>
+      </form>
+
+      <p class="switch"><a href="login.html">← Back to Login</a></p>
+    </div>
+  </div>
+
+    <script>
+    const form = document.querySelector(".auth-form");
+    const messageBox = document.getElementById("form-message");
+
+    form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const email = document.getElementById("email").value;
+
+    if(email) {
+      messageBox.textContent = "📧 A reset link has been sent to " + email + " (simulation).";
+      messageBox.className = "success";
+      messageBox.style.display = "block";
+    } else {
+      messageBox.textContent = "❌ Please enter your email address.";
+      messageBox.className = "error";
+      messageBox.style.display = "block";
+    }
+  });
+</script>
+
+
+</body>
+</html>
