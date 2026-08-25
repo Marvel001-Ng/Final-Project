@@ -4,8 +4,97 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="asset/images/TourEdo Design.jpg" alt="TourEdo">
+                <h1>TourEdo</h1>
+            </div>
+            <div class="nav-links">
+                <a href="#">Home</a>
+                <a href="#">Attractions</a>
+                <a href="#">Destinations</a>
+                <a href="#">Experiences</a>
+                <a href="#">Events</a>
+                <a href="#">About </a>
+            </div>
+            <div class="btns">
+                <a class="login" href="pages/login.html">Login</a>
+                <a class="signup" href="pages/register.html">register</a>
+        </nav>
+    </header>
+
+    <!-- hero section -->
+    <section id="home" class="hero">
+        <div class="texts">
+            <h1>Discover
+                <span id="Edo">Edo.</span>
+            </h1>
+            <h1 class="experience">Experience 
+                <span id="more">More</span>
+            </h1>
+            <p>Your ultimate travel companion to explore <br>
+            the rich culture history, and natural beauty <br>
+        of Edo State</p>           
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search Attractions....." required>
+            <select >
+                <option name="Category" id="Category" selected disabled>All Category</option>
+                <option value="national-parks">national-parks</option>
+                <option value="waterfalls">Waterfalls</option>
+                <option value="hills">Hills & Moutains</option>
+                <option value="cultral-sites">Cultural Sites</option>
+                <option value="historical-sites">Historical-sites</option>
+                <option value="resorts">Resorts</option>
+                <option value="adventure">Adventure</option>
+                <option value=""></option>
+            </select>
+
+            <select >
+                <option name="location"  id="location" selected disabled>All Location</option>
+                <option value="benin-city">Benin City</option>
+                <option value="okomu">Okomu</option>
+                <option value="auchi">Auchi</option>
+                <option value="igara">Igara</option>
+                <option value="akoko-edo">Akoko -Edo</option>
+            </select>
+            <button>Search</button>
+        </div>
+        <!-- hero feature -->
+        <div class="features">
+            <div class="feature1">
+                <img src="asset/icons/best destination icon.jpg" alt="icons">
+                <div class="text">
+                    <h3>Best Destinations</h3>
+                    <p>Discover amazing places in Edo State</p>
+                </div>
+            </div>
+            <div class="feature2">
+                <img src="asset/icons/secure booking icons.png" alt="icons">
+                <div class="text">
+                    <h3>Secure Booking</h3>
+                    <p>Safe & Reliable</p>
+                </div>
+            </div>
+            <div class="feature3">
+                <img src="asset/icons/local experience icons.png" alt="icons">
+                <div class="text">
+                    <h3>Local Experience</h3>
+                    <p>Authenic & unique</p>
+                </div>
+            </div>
+            <div class="feature4">
+                <img src="asset/icons/support icons.jpg" alt="">
+                <div class="text">
+                    <h3>24/7 Support</h3>
+                    <p>We`re here to help</p>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
 </html>
