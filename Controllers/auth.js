@@ -10,7 +10,7 @@ const signUp = async (req, res) =>{
         const {username, email, password} = req.body;
 
         if (!username || !email || !password){
-            res.status(400).json({
+            return res.status(400).json({
                 msg:"please enter required field"
             })
         }
@@ -119,7 +119,7 @@ const forgotPassword = async (req, res) => {
  
         const resetUrl = `${process.env.CLIENT_URL}/reset-password/${resetToken}`;
  
-        // Configure your real SMTP provider here (SendGrid, Mailgun, SES, etc.)
+
         const transporter = nodemailer.createTransport({
             host: process.env.SMTP_HOST,
             port: process.env.SMTP_PORT,
@@ -152,10 +152,8 @@ const forgotPassword = async (req, res) => {
     }
 };
  
-// -----------------------------
 // resetPassword
-// Verifies the JWT reset token and updates the user's password.
-// -----------------------------
+
 const resetPassword = async (req, res) => {
     try {
         const { token } = req.params; // or req.body, depending on your route setup
