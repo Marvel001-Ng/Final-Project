@@ -1,0 +1,147 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+}
+header {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+header .form-section {
+    width: 100%;
+    max-width: 450px;
+    padding: 40px 20px;
+}
+header .form-section .back-home {
+    display: inline-block;
+    margin-bottom: 25px;
+    color: #555;
+    text-decoration: none;
+    font-size: 14px;
+    font-style: 500;   
+}
+header .form-section .back-home:hover {
+    color: #1f7a4d;
+}
+header .form-section .logo {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 35px;
+    text-align: center;
+}
+header .form-section .logo  img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+header .form-section .logo #Tour {
+    color: black;
+    font-size: 22px;
+    font-weight: 700;
+}
+header .form-section .logo #Edo {
+    color: darkgreen;
+}
+/* login header */
+header .form-section .login-header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+header .form-section .login-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 10px;
+    text-align: center;
+}
+header .form-section .login-header p {
+    max-width: 380px;
+    color: #777;
+    font-size: 16px;
+}
+header .form-section .login-form {
+    width: 100%;
+}
+header .form-section .login-form .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+/* styling  of the label */
+header .form-section .login-form .form-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #222;
+    margin-top: 8px;
+}
+header .form-section .login-form .form-group input {
+    width: 100%;
+    height: 48px;
+    padding: 0 14px;
+    border: 1px solid #d9d9d9;
+    border-radius: 8px;
+    outline: none;
+}
+header .form-section .login-form .form-group input:focus {
+    border-color: #1f7a4d;
+}
+header .form-section .login-form .login-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 25px;
+    justify-content: space-between;
+}
+header .form-section .login-form .login-option input {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+header .form-section .login-form .login-option label {
+    color: black;
+    font-size: 13px;
+    font-weight: 400;
+    margin: 400;
+    cursor: pointer;
+    align-items: center;
+}
+header .form-section .login-form .login-option .forgot-password {
+    color: #1f7a4d;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+}
+header .form-section .login-form .login-option .forgot-password:hover {
+    text-decoration: underline;
+}
+header .form-section .login-form .login-button {
+    width: 100%;
+    height: 48px;
+    background-color: green;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+}
+header .form-section .login-form .signup-link {
+    text-align: center;
+    margin-top: 25px;
+}
+header .form-section .login-form .signup-link #signup {
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    color: green;
+}
+header .form-section .login-form .signup-link #signup:hover {
+    text-decoration: underline;
+}
