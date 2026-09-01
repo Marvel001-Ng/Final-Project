@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
-const eventSchema = new mongoose.Schema(
+const attractionSchema = new mongoose.Schema(
   {
-    title: {
+    name: {
       type: String,
-      required: [true, "Event title is required"],
+      required: [true, "Attraction name is required"],
       trim: true,
     },
     description: {
@@ -13,25 +13,24 @@ const eventSchema = new mongoose.Schema(
     },
     category: {
       type: String,
-      enum: ["festival", "cultural", "concert", "sports", "other"],
+      enum: ["nature", "culture", "history", "adventure", "entertainment"],
       required: true,
     },
     location: {
       state: { type: String, required: true },
       city: { type: String, required: true },
     },
-    startDate: {
-      type: Date,
-      required: [true, "Start date is required"],
-    },
-    endDate: {
-      type: Date,
-      required: [true, "End date is required"],
-    },
     price: {
       type: Number,
-      default: 0,
+      default: 0, 
     },
+    openingHours: {
+      type: String,
+    },
+     image: {
+            type: String,
+            default: "",
+        },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",
@@ -40,6 +39,6 @@ const eventSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-eventSchema.index({ "location.state": 1, category: 1, startDate: 1 });
+attractionSchema.index({ "location.state": 1, category: 1 });
 
-module.exports = mongoose.model("Event", eventSchema);
+module.exports = mongoose.model("Attraction", attractionSchema);
