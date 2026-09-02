@@ -8,7 +8,7 @@ const {
   deleteAttraction,
   uploadAttractionImage,
 } = require("../Controllers/attractions");
-const { auth, adminOnly } = require("../middleware/auth");
+const { auth, adminOnly } = require("../Middleware/Auth");
 const upload = require("../middleware/uploadmiddleware");
 
 router.route("/")
