@@ -9,7 +9,7 @@ const {
   uploadAttractionImage,
 } = require("../Controllers/attractions");
 const { auth, adminOnly } = require("../Middleware/Auth");
-const upload = require("../middleware/uploadmiddleware");
+const upload = require("../Middleware/uploadmiddleware");
 
 router.route("/")
   .get(getAttractions)
