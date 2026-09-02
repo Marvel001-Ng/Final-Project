@@ -1,5 +1,5 @@
 const Attraction = require("../models/attractions");
-const Hotel = require("../models/Hotel");
+const Hotel = require("../models/hotel");
 
 
 const getRecommendations = async (req, res) => {
