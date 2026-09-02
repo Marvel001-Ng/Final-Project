@@ -7,7 +7,7 @@ const {
   updateEvent,
   deleteEvent,
 } = require("../Controllers/events");
-const { auth, adminOnly } = require("../middleware/auth");
+const { auth, adminOnly } = require("../Middleware/Auth");
 
 router.route("/")
   .get(getEvents)

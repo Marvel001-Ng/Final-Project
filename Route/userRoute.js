@@ -6,7 +6,7 @@ const {
   updateUserRole,
   deleteUser,
 } = require("../Controllers/userController");
-const { auth, adminOnly } = require("../middleware/auth");
+const { auth, adminOnly } = require("../Middleware/Auth");
 
 // All routes here are admin-only
 router.get("/", auth, adminOnly, getUsers);
