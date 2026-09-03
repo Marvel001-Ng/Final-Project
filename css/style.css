@@ -17,6 +17,11 @@ header .navbar {
     background-color: white;
     padding: 1rem 2rem;
     color: black;
+    position: fixed;
+    top: 1;
+    left: 0;
+    width: 100%;
+    z-index: 100;
 }
 
 /* navbar logo */
@@ -80,7 +85,7 @@ header .navbar .btns .signup{
     background-image: url("../asset/images/hero-background\ images.png");
     background-size: cover;
     background-position: center;
-    padding: 2rem 1rem;
+    padding: 150px 5% 80px;
     color: white;
     position: relative;
  }
@@ -349,8 +354,9 @@ header .navbar .btns .signup{
  /* Destination section on the landing page */
  .Destination {
    width: 100%;
-   padding: 60px 5%;
+   padding: 40px 3%;
    background-color: #fff;
+   min-height: 50vh;
  }
  .Destination .texts {
    margin-bottom: 25px;
@@ -384,9 +390,183 @@ header .navbar .btns .signup{
    grid-template-columns: repeat(4, 1fr);
    gap: 16px;
 }
+.Destination .destination-container .destination-card  img {
+   width: 100%;
+   height: 40%;
+   border-radius: 20px;
+   object-fit: cover;
+   transition: transform 0.4s ease;
+}
+.Destination .destination-container .destination-card:hover img {
+   transform: scale(1.05);
+}
 .Destination .destination-container .destination-card {
-   height: 170px;
    position: relative;
    overflow: hidden;
-   border-radius: 20px;
 }
+.Destination .destination-container .destination-card img::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.65),
+        rgba(0, 0, 0, 0)
+    );
+}
+.Destination .destination-container .destination-card .destination-overlay {
+   position: absolute;
+   top: 80px;
+   left: 20px;
+   z-index: 2;
+   color: #ffffff;
+}
+.Destination .destination-container .destination-card .destination-overlay h3 {
+   color: white;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 5px;
+}
+.Destination .destination-container .destination-card .destination-overlay p {
+   color: white;
+    font-size: 13px;
+    margin: 0;
+}
+.Destination .destination-container .destination-card img ::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.65),
+        rgba(0, 0, 0, 0)
+    );
+}
+/* experience section */
+.Experience {
+   width: 100%;
+   padding: 30px 5%;
+}
+.Experience .heading h2 {
+   font-size: 24px;
+   font-weight: 700;
+   color: green;
+   margin: 0 0 18px;
+}
+.Experience .experience-container {
+   display: grid;
+   grid-template-columns: repeat(6, 1fr);
+   gap: 12px;
+}
+.Experience .experience-container .experience-card {
+   border: 1px solid #ddd;
+   border-radius: 12px;
+   padding: 14px 10px;
+   text-align: center;
+   background-color: #fff;
+   transition: 0.3s ease;
+}
+.Experience .experience-container .experience-card:hover {
+    transform: translateY(-3px);
+    border-color: #1f7a4d;
+}
+.Experience .experience-container .experience-card h3 {
+   font-size: 18px;
+   font-weight: 600;
+   margin: 0;
+   color: black;
+}
+/* how touredo works */
+.touredo-works {
+   width: 100%;
+   padding: 40px 5%;
+   display: flex;
+   gap: 30px;
+}
+.touredo-works .works-heading  h4 {
+   font-size: 12px;
+    font-weight: 700;
+    color: #1f7a4d;
+    letter-spacing: 1px;
+}
+.touredo-works .works-heading h2 {
+   font-size: 26px;
+    font-weight: 700;
+    color: #222;
+    margin: 6px 0 30px;
+}
+.touredo-works .works-steps {
+   display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    align-items: center;
+}
+.touredo-works .works-steps .work-step {
+   display: flex;
+    align-items: center;
+    gap: 30px;
+}
+.touredo-works .works-steps .work-step .step-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f1f7f3
+}
+.touredo-works .works-steps .work-step .step-icon img {
+   width: 24px;
+    height: 40px;
+    object-fit: contain;
+}
+.touredo-works .works-steps .work-step .step-content {
+   flex: 1;
+}
+.touredo-works .works-steps .work-step .step-content span {
+   font-size: 12px;
+    font-weight: 600;
+    color: #1f7a4d;
+}
+.touredo-works .works-steps .work-step .step-content h3 {
+   font-size: 18px;
+    font-weight: 700;
+    color: #222;
+    margin: 4px 0 6px;
+}
+.touredo-works .works-steps .work-step .step-content p {
+   font-size: 13px;
+    line-height: 1.5;
+    color: #666;
+    margin: 0;
+}
+.touredo-works .works-steps .work-step .step-arrow {
+   font-size: 24px;
+    color: #1f7a4d;
+    font-weight: 600;
+}
+.footer {
+   text-align: center;
+   color: white;
+   padding-top: 30px;
+   background-color: #1f7a4d;
+}
+.footer .footer-content {
+   padding-bottom: 25px;
+}
+.footer .footer-content h2 {
+   margin: 0 0 8px;
+}
+.footer .footer-content p {
+   margin: 0;
+}
+.footer .footer-bottom {
+   border-top: 1px solid rgba(255, 255, 255, 0.3);
+   padding: 15px 0;
+}
+.footer .footer-bottom p {
+   margin: 0;
+   font-size: 13px;
+}
+
+
