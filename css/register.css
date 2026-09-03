@@ -120,6 +120,17 @@ header .form-section .register-form .signup-button {
     border-radius: 15px;
     cursor: pointer;
 }
+header .form-section .register-form #register-message {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 14px;
+}
+header .form-section .register-form #register-message.success {
+    color: green;
+}
+header .form-section .register-form #register-message.error {
+    color: red;
+}
 header .form-section .register-form .login-link {
     text-align: center;
     margin-top: 25px;
