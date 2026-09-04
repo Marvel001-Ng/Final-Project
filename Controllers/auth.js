@@ -2,7 +2,9 @@ require("dotenv").config()
 const User = require("../models/user")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
-const nodemailer = require("nodemailer");
+const { Resend } = require("resend");
+const resend = new Resend(process.env.RESEND_API_KEY);
+
 
 // signUp
 const signUp = async (req, res) =>{
@@ -89,23 +91,24 @@ const login = async (req, res) => {
     }
 };
 // forgot password
+
 const forgotPassword = async (req, res) => {
     try {
         const { email } = req.body;
- 
+
         if (!email) {
             return res.status(400).json({
                 msg: "please provide email"
             });
         }
- 
+
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(200).json({
                 msg: "if that email exists, a reset link has been sent"
             });
         }
- 
+
         const resetToken = jwt.sign(
             {
                 id: user._id,
@@ -116,23 +119,11 @@ const forgotPassword = async (req, res) => {
                 expiresIn: "15m"
             }
         );
- 
-        const resetUrl = `${process.env.CLIENT_URL}/reset-password/${resetToken}`;
- 
 
-        const transporter = nodemailer.createTransport({
-        host: process.env.SMTP_HOST,
-        port: process.env.SMTP_PORT,
-        secure: process.env.SMTP_SECURE === "true",
-        auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-        },
-        family: 4,
-    });
- 
-        await transporter.sendMail({
-            from: process.env.SMTP_FROM || "no-reply@example.com",
+        const resetUrl = `${process.env.CLIENT_URL}/reset-password/${resetToken}`;
+
+        await resend.emails.send({
+            from: process.env.RESEND_FROM_EMAIL, // e.g. "TourEdo <onboarding@resend.dev>"
             to: user.email,
             subject: "Password Reset Request",
             html: `
@@ -142,16 +133,18 @@ const forgotPassword = async (req, res) => {
                 <p>If you didn't request this, you can ignore this email.</p>
             `,
         });
- 
+
         res.status(200).json({
             msg: "if that email exists, a reset link has been sent"
         });
- 
+
     } catch (error) {
         console.error(error);
         res.status(500).json({ msg: "server error" });
     }
 };
+
+
  
 // resetPassword
 
