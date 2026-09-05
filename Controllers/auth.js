@@ -95,20 +95,20 @@ const login = async (req, res) => {
 const forgotPassword = async (req, res) => {
     try {
         const { email } = req.body;
-
+ 
         if (!email) {
             return res.status(400).json({
                 msg: "please provide email"
             });
         }
-
+ 
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(200).json({
                 msg: "if that email exists, a reset link has been sent"
             });
         }
-
+ 
         const resetToken = jwt.sign(
             {
                 id: user._id,
@@ -119,11 +119,11 @@ const forgotPassword = async (req, res) => {
                 expiresIn: "15m"
             }
         );
-
+ 
         const resetUrl = `${process.env.CLIENT_URL}/reset-password/${resetToken}`;
-
-        await resend.emails.send({
-            from: process.env.RESEND_FROM_EMAIL, // e.g. "TourEdo <onboarding@resend.dev>"
+ 
+        const { data, error: resendError } = await resend.emails.send({
+            from: process.env.RESEND_FROM_EMAIL,
             to: user.email,
             subject: "Password Reset Request",
             html: `
@@ -133,17 +133,23 @@ const forgotPassword = async (req, res) => {
                 <p>If you didn't request this, you can ignore this email.</p>
             `,
         });
-
+ 
+        if (resendError) {
+            console.error("Resend error:", resendError);
+            return res.status(500).json({ msg: "failed to send reset email", detail: resendError.message });
+        }
+ 
+        console.log("Resend accepted email, id:", data?.id);
+ 
         res.status(200).json({
             msg: "if that email exists, a reset link has been sent"
         });
-
+ 
     } catch (error) {
         console.error(error);
         res.status(500).json({ msg: "server error" });
     }
 };
-
 
  
 // resetPassword
