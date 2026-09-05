@@ -2,7 +2,9 @@ require("dotenv").config()
 const User = require("../models/user")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
-const nodemailer = require("nodemailer");
+const { Resend } = require("resend");
+const resend = new Resend(process.env.RESEND_API_KEY);
+
 
 // signUp
 const signUp = async (req, res) =>{
@@ -89,6 +91,7 @@ const login = async (req, res) => {
     }
 };
 // forgot password
+
 const forgotPassword = async (req, res) => {
     try {
         const { email } = req.body;
@@ -117,21 +120,9 @@ const forgotPassword = async (req, res) => {
             }
         );
  
-        const resetUrl = `${process.env.CLIENT_URL}/reset-password/${resetToken}`;
- 
-
-        const transporter = nodemailer.createTransport({
-            host: process.env.SMTP_HOST,
-            port: process.env.SMTP_PORT,
-            secure: process.env.SMTP_SECURE === "true",
-            auth: {
-                user: process.env.SMTP_USER,
-                pass: process.env.SMTP_PASS,
-            },
-        });
- 
-        await transporter.sendMail({
-            from: process.env.SMTP_FROM || "no-reply@example.com",
+        const resetUrl = `${process.env.CLIENT_URL}/pages/reset-password.html#/${resetToken}`;        
+        const { data, error: resendError } = await resend.emails.send({
+            from: process.env.RESEND_FROM_EMAIL,
             to: user.email,
             subject: "Password Reset Request",
             html: `
@@ -142,6 +133,13 @@ const forgotPassword = async (req, res) => {
             `,
         });
  
+        if (resendError) {
+            console.error("Resend error:", resendError);
+            return res.status(500).json({ msg: "failed to send reset email", detail: resendError.message });
+        }
+ 
+        console.log("Resend accepted email, id:", data?.id);
+ 
         res.status(200).json({
             msg: "if that email exists, a reset link has been sent"
         });
@@ -151,12 +149,13 @@ const forgotPassword = async (req, res) => {
         res.status(500).json({ msg: "server error" });
     }
 };
+
  
 // resetPassword
 
 const resetPassword = async (req, res) => {
     try {
-        const { token } = req.params; // or req.body, depending on your route setup
+        const { token } = req.params; 
         const { newPassword } = req.body;
  
         if (!token || !newPassword) {
