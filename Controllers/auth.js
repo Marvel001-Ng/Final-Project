@@ -120,8 +120,7 @@ const forgotPassword = async (req, res) => {
             }
         );
  
-        const resetUrl = `${process.env.CLIENT_URL}/reset-password/${resetToken}`;
- 
+        const resetUrl = `${process.env.CLIENT_URL}/pages/reset-password.html#/${resetToken}`;        
         const { data, error: resendError } = await resend.emails.send({
             from: process.env.RESEND_FROM_EMAIL,
             to: user.email,
