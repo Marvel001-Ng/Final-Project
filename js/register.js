@@ -4,6 +4,10 @@ const registerMessage = document.querySelector("#register-message");
 registerForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
+    registerMessage.textContent = "";
+    registerMessage.classList.remove("success", "error");
+
+
     // userinput
     const fullName = document.querySelector("#full-name").value;
     const email = document.querySelector("#email").value;
