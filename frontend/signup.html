@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TourEdo - Sign Up</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="auth-header">
+    <a href="index.html" class="home-link">← Back to Home</a>
+  </header>
+
+  <div class="auth-container">
+    <div class="auth-box">
+      <h1 class="logo">TourEdo</h1>
+      <h2>Create Account</h2>
+      <p>Join TourEdo and start exploring Edo State.</p>
+
+      <!-- Message area using css visibility toggles -->
+      <div id="form-message" class="hidden-message"></div>
+
+      <form class="auth-form" id="signup-form">
+        <label for="fullname">Full Name</label>
+        <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required autocomplete="name">
+        
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required autocomplete="email">
+        
+        <!-- NEW FIELD: Role Selection for Backend Core Requirement -->
+        <label for="role">Account Type</label>
+        <select id="role" name="role" required class="form-dropdown">
+          <option value="tourist">Tourist (Discover & Book)</option>
+          <option value="guide">Local Guide (Offer Tours)</option>
+        </select>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Create a password" required autocomplete="new-password">
+        
+        <label for="confirm">Confirm Password</label>
+        <input type="password" id="confirm" placeholder="Confirm your password" required autocomplete="new-password">
+        
+        <div class="checkbox">
+          <input type="checkbox" id="terms" required>
+          <label for="terms">I agree to the Terms & Conditions and Privacy Policy</label>
+        </div>
+        
+        <button type="submit" class="signup-btn" id="submit-btn">Create Account</button>
+      </form>
+
+      <div class="divider">or</div>
+      <button type="button" class="google-btn">Continue with Google</button>
+
+      <p class="switch">Already have an account? <a href="login.html">Log in</a></p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("signup-form").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const fullname = document.getElementById("fullname").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const role = document.getElementById("role").value;
+  const password = document.getElementById("password").value;
+  const confirm = document.getElementById("confirm").value;
+
+  const messageBox = document.getElementById("form-message");
+  const submitBtn = document.getElementById("submit-btn");
+
+  messageBox.className = "hidden-message";
+  messageBox.textContent = "";
+
+  // Password match check
+  if (password !== confirm) {
+    messageBox.textContent = "❌ Passwords do not match!";
+    messageBox.className = "message-box error";
+    return;
+  }
+
+  // Optional: Password strength check
+  if (password.length < 8) {
+    messageBox.textContent = "❌ Password must be at least 8 characters.";
+    messageBox.className = "message-box error";
+    return;
+  }
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Creating Account...";
+
+  try {
+    const backendEndpoint = "http://localhost:7000/api/auth/signup";
+
+    const response = await fetch(backendEndpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: fullname, email, role, password })
+    });
+
+    if (!response.ok) {
+      if (response.status === 409) throw new Error("Email already in use.");
+      throw new Error("Registration failed. Please try again.");
+    }
+
+    const data = await response.json();
+
+    // If backend returns a token, store it
+    if (data.token) {
+      localStorage.setItem("authToken", data.token);
+      localStorage.setItem("userRole", data.role);
+      localStorage.setItem("userName", data.user?.name || fullname);
+      messageBox.textContent = `✅ Welcome ${fullname}! Redirecting to dashboard...`;
+      messageBox.className = "message-box success";
+      setTimeout(() => {
+        window.location.href = "dashboard.html";
+      }, 2000);
+    } else {
+      // Otherwise, redirect to login
+      messageBox.textContent = `✅ Account created! Redirecting to login...`;
+      messageBox.className = "message-box success";
+      setTimeout(() => {
+        window.location.href = "login.html";
+      }, 2000);
+    }
+
+  } catch (error) {
+    messageBox.textContent = `❌ Error: ${error.message}`;
+    messageBox.className = "message-box error";
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Create Account";
+  }
+});
+  </script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TourEdo - Events in Edo State</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <a class="logo" href="index.html">TourEdo</a>
+      <ul class="nav-links">
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="trip-planner.html">My Trip Planner</a></li>
+        <li><a href="attraction-details.html">Attractions</a></li>
+        <li><a href="hotel.html">Hotels</a></li>
+        <li><a href="event.html" aria-current="page">Events</a></li>
+      </ul>
+      <div class="auth-buttons">
+        <a class="login" href="login.html">Login</a>
+        <a class="signup" href="signup.html">Sign Up</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="directory-hero event-hero">
+      <div class="directory-hero-copy">
+        <span class="eyebrow">The Edo calendar</span>
+        <h1>Make room for the memorable.</h1>
+        <p>Discover the festivals, showcases, markets, and live experiences that give every Edo trip its rhythm.</p>
+      </div>
+      <form class="directory-search" id="event-search-form">
+        <label class="sr-only" for="event-search">Search events</label>
+        <input id="event-search" type="search" placeholder="Search events or places">
+        <select id="event-month" aria-label="Filter by month">
+          <option value="all">Any month</option>
+          <option value="september">September</option>
+          <option value="october">October</option>
+          <option value="november">November</option>
+        </select>
+        <button type="submit">Explore events</button>
+      </form>
+    </section>
+
+    <section class="directory-section event-directory">
+      <div class="section-heading-row">
+        <div>
+          <span class="eyebrow">Coming up</span>
+          <h2>Experiences worth planning around</h2>
+        </div>
+        <p id="event-count" class="result-count">4 events</p>
+      </div>
+      <div class="event-list" id="event-list">
+        <article class="event-card" data-month="september" data-search="edo food and craft market benin city market food culture">
+          <div class="event-date"><strong>21</strong><span>SEP</span></div>
+          <div class="event-card-image event-image-one" aria-hidden="true"></div>
+          <div class="event-card-content">
+            <div class="card-topline"><span class="tag">Food & culture</span><span>Benin City</span></div>
+            <h3>Edo Food & Craft Market</h3>
+            <p>Meet local makers, taste regional favorites, and take home something with a story.</p>
+            <a href="trip-planner.html">Add to my plan →</a>
+          </div>
+        </article>
+
+        <article class="event-card" data-month="october" data-search="benin heritage week royal palace culture history benin city">
+          <div class="event-date"><strong>12</strong><span>OCT</span></div>
+          <div class="event-card-image event-image-two" aria-hidden="true"></div>
+          <div class="event-card-content">
+            <div class="card-topline"><span class="tag">Heritage</span><span>Benin City</span></div>
+            <h3>Benin Heritage Week</h3>
+            <p>A week of stories, music, dance, and living history celebrating the heart of Edo.</p>
+            <a href="trip-planner.html">Add to my plan →</a>
+          </div>
+        </article>
+
+        <article class="event-card" data-month="october" data-search="ososo hills outdoor adventure hike akoko edo nature">
+          <div class="event-date"><strong>26</strong><span>OCT</span></div>
+          <div class="event-card-image event-image-three" aria-hidden="true"></div>
+          <div class="event-card-content">
+            <div class="card-topline"><span class="tag">Outdoors</span><span>Akoko-Edo</span></div>
+            <h3>Ososo Hills Trail Weekend</h3>
+            <p>Join fellow explorers for a guided climb, highland views, and a slower weekend outdoors.</p>
+            <a href="trip-planner.html">Add to my plan →</a>
+          </div>
+        </article>
+
+        <article class="event-card" data-month="november" data-search="museum art exhibition emowaa airport road benin city culture">
+          <div class="event-date"><strong>08</strong><span>NOV</span></div>
+          <div class="event-card-image event-image-four" aria-hidden="true"></div>
+          <div class="event-card-content">
+            <div class="card-topline"><span class="tag">Arts</span><span>Benin City</span></div>
+            <h3>New Voices at EMOWAA</h3>
+            <p>See emerging West African artists respond to heritage, memory, and the future.</p>
+            <a href="trip-planner.html">Add to my plan →</a>
+          </div>
+        </article>
+      </div>
+      <p class="empty-state" id="event-empty" hidden>No events match those filters. Try another month or search term.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 TourEdo. All rights reserved.</p>
+    <p>Contact: +234 (0) 703 625 4567 | info@touredo.com</p>
+  </footer>
+
+  <script>
+    const eventForm = document.getElementById("event-search-form");
+    const eventCards = [...document.querySelectorAll(".event-card")];
+    const eventCount = document.getElementById("event-count");
+    const eventEmpty = document.getElementById("event-empty");
+
+    function filterEvents(event) {
+      if (event) event.preventDefault();
+      const query = document.getElementById("event-search").value.trim().toLowerCase();
+      const month = document.getElementById("event-month").value;
+      let visibleCount = 0;
+
+      eventCards.forEach((card) => {
+        const matchesQuery = !query || card.dataset.search.includes(query);
+        const matchesMonth = month === "all" || card.dataset.month === month;
+        const visible = matchesQuery && matchesMonth;
+        card.hidden = !visible;
+        if (visible) visibleCount += 1;
+      });
+
+      eventCount.textContent = `${visibleCount} ${visibleCount === 1 ? "event" : "events"}`;
+      eventEmpty.hidden = visibleCount !== 0;
+    }
+
+    eventForm.addEventListener("submit", filterEvents);
+    document.getElementById("event-month").addEventListener("change", filterEvents);
+  </script>
+</body>
+</html>

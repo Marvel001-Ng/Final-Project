@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TourEdo - My Trip Planner</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <a class="logo" href="index.html">TourEdo</a>
+      <ul class="nav-links">
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="trip-planner.html" aria-current="page">My Trip Planner</a></li>
+        <li><a href="index.html#attractions">Attractions</a></li>
+        <li><a href="hotel.html">Hotels</a></li>
+        <li><a href="event.html">Events</a></li>
+      </ul>
+      <div class="auth-buttons">
+        <a class="login" href="login.html">Login</a>
+        <a class="signup" href="signup.html">Sign Up</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="planner-page">
+    <section class="planner-intro">
+      <div class="planner-intro-copy">
+        <span class="eyebrow">Your next chapter</span>
+        <h1>Build an Edo trip that feels like yours.</h1>
+        <p>Tell us how you want to spend your time, and TourEdo will shape your starting itinerary around your budget, pace, and interests.</p>
+      </div>
+      <div class="planner-stat-card">
+        <span>Plan at a glance</span>
+        <strong>4</strong>
+        <p>signature destinations ready to explore</p>
+      </div>
+    </section>
+
+    <section class="planner-workspace" id="trip-planner">
+      <div class="planner-panel planner-input-panel">
+        <div class="panel-heading">
+          <span class="step-number">01</span>
+          <div>
+            <span class="eyebrow">Set your direction</span>
+            <h2>What should this trip feel like?</h2>
+          </div>
+        </div>
+        <form id="trip-planner-form">
+          <div class="planner-fields-row">
+            <div class="form-group">
+              <label for="planner-budget">Your budget (₦)</label>
+              <input type="number" id="planner-budget" placeholder="e.g. 80000" required min="1000">
+            </div>
+            <div class="form-group">
+              <label for="planner-days">Duration (days)</label>
+              <input type="number" id="planner-days" placeholder="e.g. 2" required min="1" max="14">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="planner-interest">Primary interest</label>
+            <select id="planner-interest" required>
+              <option value="culture">Culture &amp; history</option>
+              <option value="nature">Nature &amp; wildlife</option>
+              <option value="adventure">Adventure &amp; outdoors</option>
+            </select>
+          </div>
+          <button type="submit" class="planner-btn">Generate my plan <span aria-hidden="true">→</span></button>
+        </form>
+      </div>
+
+      <aside class="planner-panel planner-guide-panel">
+        <span class="eyebrow">A little guidance</span>
+        <h2>Start broad. Refine as you go.</h2>
+        <ul class="planner-guide-list">
+          <li><strong>Culture</strong><span>Bronzes, museums, royal history, and local stories.</span></li>
+          <li><strong>Nature</strong><span>Rainforest, wildlife, viewpoints, and unhurried walks.</span></li>
+          <li><strong>Adventure</strong><span>Hills, trails, canopy walks, and open-air days.</span></li>
+        </ul>
+        <a class="text-link" href="index.html#attractions">Browse destinations <span aria-hidden="true">→</span></a>
+      </aside>
+    </section>
+
+    <section class="planner-search-section">
+      <div class="section-heading-row">
+        <div>
+          <span class="eyebrow">Optional filters</span>
+          <h2>Already know what you want?</h2>
+        </div>
+        <p>Use these filters to steer the plan.</p>
+      </div>
+      <form class="planner-search-bar" id="main-search-form">
+        <label class="sr-only" for="search-input">Search attractions</label>
+        <input type="search" id="search-input" placeholder="Search attractions...">
+        <select id="category-filter" aria-label="Category">
+          <option value="">Any category</option>
+          <option value="culture">Culture</option>
+          <option value="nature">Nature</option>
+          <option value="adventure">Adventure</option>
+        </select>
+        <select id="location-filter" aria-label="Location">
+          <option value="">Any location</option>
+          <option value="benin-city">Benin City</option>
+          <option value="akoko-edo">Akoko-Edo</option>
+          <option value="esan-land">Esan Land</option>
+        </select>
+        <button type="submit">Add filters</button>
+      </form>
+    </section>
+
+    <section class="planner-result-section">
+      <div id="planner-result-display" class="planner-result hidden" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 TourEdo. All rights reserved.</p>
+    <p>Contact: +234 (0) 703 625 4567 | info@touredo.com</p>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const searchForm = document.getElementById("main-search-form");
+      const plannerForm = document.getElementById("trip-planner-form");
+      const resultDisplay = document.getElementById("planner-result-display");
+
+      function generateTripPlan(data) {
+        const { keyword, category, location, budget, days, interest } = data;
+        resultDisplay.classList.remove("hidden");
+        resultDisplay.innerHTML = `
+          <div class="result-heading"><span class="step-number">02</span><div><span class="eyebrow">Your starting point</span><h2>Your Edo trip plan</h2></div></div>
+          <div class="result-summary">
+            <div><span>Budget</span><strong>₦${budget}</strong></div>
+            <div><span>Duration</span><strong>${days} days</strong></div>
+            <div><span>Focus</span><strong>${interest}</strong></div>
+          </div>
+          <p class="result-note">We found a direction based on ${keyword || "your preferences"}, ${category || "all categories"}, and ${location || "a flexible location"}. Suggested itinerary generation is ready for the next step.</p>
+          <a class="text-link" href="index.html#attractions">Explore matching attractions <span aria-hidden="true">→</span></a>
+        `;
+        resultDisplay.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+
+      function readFilters() {
+        return {
+          keyword: document.getElementById("search-input").value.trim(),
+          category: document.getElementById("category-filter").value,
+          location: document.getElementById("location-filter").value
+        };
+      }
+
+      searchForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        generateTripPlan({ ...readFilters(), budget: "N/A", days: "N/A", interest: "filtered results" });
+      });
+
+      plannerForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        generateTripPlan({
+          ...readFilters(),
+          budget: document.getElementById("planner-budget").value,
+          days: document.getElementById("planner-days").value,
+          interest: document.getElementById("planner-interest").value
+        });
+      });
+    });
+  </script>
+</body>
+</html>

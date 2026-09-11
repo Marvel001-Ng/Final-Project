@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TourEdo - Discover Edo State</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <nav class="navbar">
+      <a class="logo" href="index.html">TourEdo</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="trip-planner.html">My Trip Planner</a></li> <!-- Link now points to separate page -->
+        <li><a href="attraction-details.html">Attractions</a></li>
+        <li><a href="hotel.html">Hotels</a></li>
+        <li><a href="event.html">Events</a></li>
+        <li><a href="about.html">About Us</a></li>
+      </ul>
+      <div class="auth-buttons">
+          <a class="login" href="login.html">Login</a>
+          <a class="signup" href="signup.html">Sign Up</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Banner -->
+  <section id="home" class="hero">
+    <div class="hero-text">
+      <h1>Discover Edo. Experience More.</h1>
+      <p>Your ultimate travel companion to explore the rich culture, history, and natural beauty of Edo State.</p>
+    </div>
+    <form class="search-bar" id="main-search-form">
+      <input type="text" id="search-input" placeholder="Search attractions...">
+      <select id="category-filter">
+        <option value="">Category</option>
+        <option value="culture">Culture</option>
+        <option value="nature">Nature</option>
+        <option value="adventure">Adventure</option>
+      </select>
+      <select id="location-filter">
+        <option value="">Location</option>
+        <option value="benin-city">Benin City</option>
+        <option value="akoko-edo">Akoko-Edo</option>
+        <option value="esan-land">Esan Land</option>
+      </select>
+      <button type="submit">Search</button>
+    </form>
+    <div class="features">
+      <div class="feature">🌍 Best Destinations</div>
+      <div class="feature">🔒 Secure Booking</div>
+      <div class="feature">🤝 Local Experiences</div>
+      <div class="feature">⏰ 24/7 Support</div>
+    </div>
+    <div class="hero-actions" style="display:flex; gap:0.8rem; flex-wrap:wrap; margin-top:1.5rem;">
+      <a class="signup" href="recommendation.html" style="display:inline-block;">Get AI recommendation</a>
+      <a class="login" href="booking.html" style="display:inline-block;">Book a trip</a>
+    </div>
+  </section>
+
+  <!-- Featured Attractions -->
+  <section id="attractions">
+    <h2>Featured Attractions</h2>
+    <div class="grid">
+      <article class="card homepage-attraction-card" data-attraction-id="okomu" data-category="nature" data-location="benin-city">
+        <img src="../assets/okomu-national-park/sign-from-ticket-office-okomu-national-park-edo.jpg" alt="Okomu National Park">
+        <h3>Okomu National Park</h3>
+        <p>⭐ 4.8 | From ₦5,000</p>
+        <a class="card-action" href="attraction-details.html?id=okomu">Explore destination →</a>
+      </article>
+      <article class="card homepage-attraction-card" data-attraction-id="ososo" data-category="adventure" data-location="akoko-edo">
+        <img src="../assets/ososo-hill/ososo-hill-edo.png" alt="Ososo Hills">
+        <h3>Ososo Hills</h3>
+        <p>⭐ 4.6 | From ₦3,500</p>
+        <a class="card-action" href="attraction-details.html?id=ososo">Explore destination →</a>
+      </article>
+      <article class="card homepage-attraction-card" data-attraction-id="ogba" data-category="nature" data-location="benin-city">
+        <img src="../assets/ogba-zoo/ogba-zoo-and-park.png" alt="Ogba Zoo">
+        <h3>Ogba Zoo</h3>
+        <p>⭐ 4.7 | From ₦2,000</p>
+        <a class="card-action" href="attraction-details.html?id=ogba">Explore destination →</a>
+      </article>
+      <article class="card homepage-attraction-card" data-attraction-id="emowaa" data-category="culture" data-location="benin-city">
+        <img src="../assets/national-museum-edo/entrance-with-wall-mural.jpg" alt="Edo Museum of West African Art">
+        <h3>Edo Museum of West African Art</h3>
+        <p>⭐ 4.5 | From ₦1,500</p>
+        <a class="card-action" href="attraction-details.html?id=emowaa">Explore destination →</a>
+      </article>
+    </div>
+    <p class="empty-state homepage-search-empty" id="homepage-search-empty" hidden>No attractions match your search. Try another category or location.</p>
+  </section>
+
+  <!-- Featured Hotels -->
+  <section id="hotels" class="featured-hotels">
+    <div class="section-heading-row">
+      <div>
+        <span class="eyebrow">Rest easy</span>
+        <h2>Stay close to the story</h2>
+      </div>
+      <a class="section-link" href="hotel.html">View all hotels →</a>
+    </div>
+    <div class="grid featured-hotel-grid">
+      <article class="card">
+        <img src="../assets/hotel/royal-palms-residence/royal-palms-residence-building.avif" alt="Royal Palms Residence building">
+        <h3>Royal Palms Residence</h3>
+        <p>★ 4.8 · Benin City · From ₦38,000 / night</p>
+      </article>
+      <article class="card">
+        <img src="../assets/hotel/greyfield-hotel-and-apartments/greyfield-hotel-and-apartments-pool.jpg" alt="Greyfield Hotel and Apartments pool">
+        <h3>Greyfield Hotel &amp; Apartments</h3>
+        <p>★ 4.7 · Benin City · From ₦52,000 / night</p>
+      </article>
+      <article class="card">
+        <img src="../assets/hotel/protea-hotel-by-marriott-benin-city/protea-hotel-by-marriott-pool.jpg" alt="Protea Hotel by Marriott pool">
+        <h3>Protea Hotel by Marriott</h3>
+        <p>★ 4.5 · Benin City · From ₦29,500 / night</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="events" class="featured-events">
+    <div class="section-heading-row">
+      <div>
+        <span class="eyebrow">The Edo calendar</span>
+        <h2>Plan around something memorable</h2>
+      </div>
+      <a class="section-link" href="event.html">View all events →</a>
+    </div>
+    <div class="featured-event-grid">
+      <article class="featured-event-card">
+        <div class="featured-event-image event-image-one"><span>21 SEP</span></div>
+        <div class="featured-event-content">
+          <div class="card-topline"><span class="tag">Food &amp; culture</span><span>Benin City</span></div>
+          <h3>Edo Food &amp; Craft Market</h3>
+          <p>Meet local makers, taste regional favorites, and take home something with a story.</p>
+          <a href="event.html">Explore event →</a>
+        </div>
+      </article>
+      <article class="featured-event-card">
+        <div class="featured-event-image event-image-two"><span>12 OCT</span></div>
+        <div class="featured-event-content">
+          <div class="card-topline"><span class="tag">Heritage</span><span>Benin City</span></div>
+          <h3>Benin Heritage Week</h3>
+          <p>A week of stories, music, dance, and living history celebrating the heart of Edo.</p>
+          <a href="event.html">Explore event →</a>
+        </div>
+      </article>
+      <article class="featured-event-card">
+        <div class="featured-event-image event-image-three"><span>26 OCT</span></div>
+        <div class="featured-event-content">
+          <div class="card-topline"><span class="tag">Outdoors</span><span>Akoko-Edo</span></div>
+          <h3>Ososo Hills Trail Weekend</h3>
+          <p>Join fellow explorers for a guided climb, highland views, and a slower weekend outdoors.</p>
+          <a href="event.html">Explore event →</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="about" class="about-section">
+    <div class="about-section-copy">
+      <span class="eyebrow">Why TourEdo</span>
+      <h2>One thoughtful starting point for discovering Edo.</h2>
+      <p>TourEdo brings destinations, stays, events, and trip planning into one place so you can spend less time piecing a journey together and more time being present for it.</p>
+      <a class="section-link" href="trip-planner.html">Start planning your trip →</a>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials">
+    <h2>What Travelers Say</h2>
+    <div class="grid">
+      <div class="card">
+        <p>"TourEdo made my trip unforgettable!"</p>
+        <h4>- Amaka, Lagos</h4>
+      </div>
+      <div class="card">
+        <p>"Easy booking and amazing experiences."</p>
+        <h4>- David E., Abuja</h4>
+      </div>
+      <div class="card">
+        <p>"I loved exploring Edo with local guides."</p>
+        <h4>- Sarah P., UK</h4>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 TourEdo. All rights reserved.</p>
+    <p>Contact: +234 (0) 703 625 4567 | info@touredo.com</p>
+  </footer>
+</body>
+</html>

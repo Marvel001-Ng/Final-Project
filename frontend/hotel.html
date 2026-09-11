@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TourEdo - Hotels in Edo State</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <a class="logo" href="index.html">TourEdo</a>
+      <ul class="nav-links">
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="trip-planner.html">My Trip Planner</a></li>
+        <li><a href="attraction-details.html">Attractions</a></li>
+        <li><a href="hotel.html" aria-current="page">Hotels</a></li>
+        <li><a href="event.html">Events</a></li>
+      </ul>
+      <div class="auth-buttons">
+        <a class="login" href="login.html">Login</a>
+        <a class="signup" href="signup.html">Sign Up</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="directory-hero hotel-hero">
+      <div class="directory-hero-copy">
+        <span class="eyebrow">Stay awhile</span>
+        <h1>Find your base in Edo.</h1>
+        <p>From polished city hotels to quiet weekend retreats, choose a stay that keeps your next experience close.</p>
+      </div>
+      <form class="directory-search" id="hotel-search-form">
+        <label class="sr-only" for="hotel-search">Search hotels</label>
+        <input id="hotel-search" type="search" placeholder="Search by hotel or location">
+        <select id="hotel-type" aria-label="Filter by hotel type">
+          <option value="all">All stays</option>
+          <option value="city">City stay</option>
+          <option value="retreat">Retreat</option>
+          <option value="business">Business</option>
+        </select>
+        <button type="submit">Find a stay</button>
+      </form>
+    </section>
+
+    <section class="directory-section">
+      <div class="section-heading-row">
+        <div>
+          <span class="eyebrow">Curated stays</span>
+          <h2>Places travelers return to</h2>
+        </div>
+        <p id="hotel-count" class="result-count">4 stays</p>
+      </div>
+      <div class="directory-grid" id="hotel-list">
+        <article class="directory-card" data-type="city" data-search="benin royal palms city center benin city">
+          <div class="directory-card-image hotel-image hotel-image-one"><span>Benin City</span></div>
+          <div class="directory-card-body">
+            <div class="card-topline"><span class="tag">City stay</span><span class="rating">★ 4.8</span></div>
+            <h3>Royal Palms Residence</h3>
+            <p>Modern rooms, a pool, gym, and generous shared spaces in the heart of Benin City.</p>
+            <div class="card-footer"><strong>From ₦38,000 <small>/ night</small></strong><a href="login.html">Reserve →</a></div>
+          </div>
+        </article>
+
+        <article class="directory-card" data-type="retreat" data-search="greyfield hotel apartments retreat benin city pool">
+          <div class="directory-card-image hotel-image hotel-image-two"><span>Ovia South-West</span></div>
+          <div class="directory-card-body">
+            <div class="card-topline"><span class="tag">Retreat</span><span class="rating">★ 4.7</span></div>
+            <h3>Greyfield Hotel &amp; Apartments</h3>
+            <p>Spacious apartment-style rooms, poolside downtime, and a relaxed stay for longer visits.</p>
+            <div class="card-footer"><strong>From ₦52,000 <small>/ night</small></strong><a href="login.html">Reserve →</a></div>
+          </div>
+        </article>
+
+        <article class="directory-card" data-type="business" data-search="protea hotel marriott benin city business conference airport road">
+          <div class="directory-card-image hotel-image hotel-image-three"><span>Airport Road</span></div>
+          <div class="directory-card-body">
+            <div class="card-topline"><span class="tag">Business</span><span class="rating">★ 4.5</span></div>
+            <h3>Protea Hotel by Marriott</h3>
+            <p>A polished business stay with conference rooms, dining, pool access, and reliable service.</p>
+            <div class="card-footer"><strong>From ₦29,500 <small>/ night</small></strong><a href="login.html">Reserve →</a></div>
+          </div>
+        </article>
+
+        <article class="directory-card" data-type="retreat" data-search="kawruky hotel lodge benin city retreat pool">
+          <div class="directory-card-image hotel-image hotel-image-four"><span>Akoko-Edo</span></div>
+          <div class="directory-card-body">
+            <div class="card-topline"><span class="tag">Retreat</span><span class="rating">★ 4.6</span></div>
+            <h3>Kawruky Hotel</h3>
+            <p>A friendly, easygoing base with comfortable rooms, a swimming pool, and welcoming common areas.</p>
+            <div class="card-footer"><strong>From ₦24,000 <small>/ night</small></strong><a href="login.html">Reserve →</a></div>
+          </div>
+        </article>
+      </div>
+      <p class="empty-state" id="hotel-empty" hidden>No stays match those filters. Try a different location or stay type.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 TourEdo. All rights reserved.</p>
+    <p>Contact: +234 (0) 703 625 4567 | info@touredo.com</p>
+  </footer>
+
+  <script>
+    const hotelForm = document.getElementById("hotel-search-form");
+    const hotelCards = [...document.querySelectorAll(".directory-card")];
+    const hotelCount = document.getElementById("hotel-count");
+    const hotelEmpty = document.getElementById("hotel-empty");
+
+    function filterHotels(event) {
+      if (event) event.preventDefault();
+      const query = document.getElementById("hotel-search").value.trim().toLowerCase();
+      const type = document.getElementById("hotel-type").value;
+      let visibleCount = 0;
+
+      hotelCards.forEach((card) => {
+        const matchesQuery = !query || card.dataset.search.includes(query);
+        const matchesType = type === "all" || card.dataset.type === type;
+        const visible = matchesQuery && matchesType;
+        card.hidden = !visible;
+        if (visible) visibleCount += 1;
+      });
+
+      hotelCount.textContent = `${visibleCount} ${visibleCount === 1 ? "stay" : "stays"}`;
+      hotelEmpty.hidden = visibleCount !== 0;
+    }
+
+    hotelForm.addEventListener("submit", filterHotels);
+    document.getElementById("hotel-type").addEventListener("change", filterHotels);
+  </script>
+</body>
+</html>

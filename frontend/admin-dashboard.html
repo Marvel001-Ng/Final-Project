@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TourEdo - Admin Control Panel</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Secure Administrative Root Layout Grid Wrapper -->
+  <div class="admin-layout">
+    
+    <!-- Administrative Sidebar Controls -->
+    <aside class="admin-sidebar">
+      <h3>TourEdo Control</h3>
+      <ul class="admin-menu">
+        <li><a href="#overview" class="active">📊 Platform Overview</a></li>
+        <li><a href="#attractions-mgmt">🏛️ Manage Attractions</a></li>
+        <li><a href="#hotels-mgmt">🏨 Manage Hotels</a></li>
+        <li><a href="#events-mgmt">🎉 Manage Events</a></li>
+        <li><a href="#users-mgmt">👥 User Management</a></li>
+      </ul>
+      <button class="admin-logout" id="admin-logout-trigger">System Log Out</button>
+    </aside>
+
+    <!-- Administrative Central Processing Operations Arena -->
+    <main class="admin-main">
+      <header class="admin-header">
+        <div>
+          <h1>System Control Centre</h1>
+          <p>Global operations node to register attractions, update hotels, and manage user records.</p>
+        </div>
+        <div class="badge-admin">Security: Root Admin</div>
+      </header>
+
+      <!-- Platform Analytics Metric Row -->
+      <div class="stats-row">
+        <div class="stat-box">
+          <h4>Total Attractions</h4>
+          <p>14</p>
+        </div>
+        <div class="stat-box">
+          <h4>Registered Hotels</h4>
+          <p>32</p>
+        </div>
+        <div class="stat-box">
+          <h4>Active Users</h4>
+          <p>1,240</p>
+        </div>
+      </div>
+
+      <!-- Core CRUD Records Table Mock -->
+      <div class="table-container" id="attractions-mgmt">
+        <div class="table-header-group">
+          <h2 style="font-size: 1.3rem; color: #0b3d2e; text-align: left; margin: 0;">🏛️ Live System Attractions Inventory</h2>
+          <button class="add-action-btn">+ Create Attraction</button>
+        </div>
+        
+        <table class="crud-table">
+          <thead>
+            <tr>
+              <th>ID Reference</th>
+              <th>Name</th>
+              <th>Geographical Zone</th>
+              <th>Base Price</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>#ATT-001</td>
+              <td><strong>Okomu National Park</strong></td>
+              <td>Ovia South-West</td>
+              <td>₦5,000</td>
+              <td>
+                <a href="#" class="action-badge btn-edit">Edit</a>
+                <a href="#" class="action-badge btn-delete">Delete</a>
+              </td>
+            </tr>
+            <tr>
+              <td>#ATT-002</td>
+              <td><strong>Ososo Hills</strong></td>
+              <td>Akoko-Edo</td>
+              <td>₦3,500</td>
+              <td>
+                <a href="#" class="action-badge btn-edit">Edit</a>
+                <a href="#" class="action-badge btn-delete">Delete</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
+    
+    <script>
+(function initAdminPanel() {
+  // 🔒 Route Guard: Ensure only admins can access
+  const storedToken = localStorage.getItem("authToken");
+  const userRole = localStorage.getItem("userRole");
+
+  if (!storedToken || userRole !== "admin") {
+    alert("🚨 Unauthorized Access! Admin privileges required.");
+    if (storedToken) {
+      window.location.href = "dashboard.html"; // fallback for non-admin users
+    } else {
+      window.location.href = "login.html"; // force login if no token
+    }
+    return;
+  }
+
+  // ✅ Load attractions dynamically from backend
+  async function loadAttractions() {
+    const tbody = document.querySelector(".crud-table tbody");
+    tbody.innerHTML = `<tr><td colspan="5">Loading attractions...</td></tr>`;
+
+    try {
+      const response = await fetch("http://localhost:7000/api/admin/attractions", {
+        headers: { Authorization: `Bearer ${storedToken}` }
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to load attractions. Please check your admin rights.");
+      }
+
+      const attractions = await response.json();
+
+      if (!attractions.length) {
+        tbody.innerHTML = `<tr><td colspan="5">No attractions found.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = attractions.map(att => `
+        <tr>
+          <td>${att.id}</td>
+          <td><strong>${att.name}</strong></td>
+          <td>${att.zone}</td>
+          <td>₦${att.price}</td>
+          <td>
+            <a href="#" class="action-badge btn-edit" data-id="${att.id}">Edit</a>
+            <a href="#" class="action-badge btn-delete" data-id="${att.id}">Delete</a>
+          </td>
+        </tr>
+      `).join("");
+    } catch (error) {
+      tbody.innerHTML = `<tr><td colspan="5">❌ ${error.message}</td></tr>`;
+    }
+  }
+
+  loadAttractions();
+
+  // 🗑️ Handle Delete Action
+  document.addEventListener("click", async e => {
+    if (e.target.classList.contains("btn-delete")) {
+      e.preventDefault();
+      const attractionId = e.target.dataset.id;
+      if (confirm(`Delete attraction ${attractionId}?`)) {
+        try {
+          const response = await fetch(`http://localhost:7000/api/attractions/${attractionId}`, {
+            method: "DELETE",
+            headers: { Authorization: `Bearer ${storedToken}` }
+          });
+          if (!response.ok) throw new Error("Failed to delete attraction.");
+          alert("✅ Attraction deleted successfully.");
+          loadAttractions(); // refresh table
+        } catch (error) {
+          alert(`❌ Error: ${error.message}`);
+        }
+      }
+    }
+  });
+
+  // ✏️ Handle Edit Action (placeholder for modal/form logic)
+  document.addEventListener("click", e => {
+    if (e.target.classList.contains("btn-edit")) {
+      e.preventDefault();
+      const attractionId = e.target.dataset.id;
+      alert(`Edit attraction ${attractionId} (open modal/form here).`);
+      // TODO: Implement modal form for editing
+    }
+  });
+
+  // 🚪 Logout Cleanup
+  const logoutBtn = document.getElementById("admin-logout-trigger");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+      localStorage.removeItem("authToken");
+      localStorage.removeItem("userRole");
+      localStorage.removeItem("userName");
+      alert("Administrative session ended.");
+      window.location.href = "login.html";
+    });
+  }
+})();
+</script>
+</body>
+</html>

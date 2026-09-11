@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TourEdo - Forgot Password</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="auth-header">
+    <a href="index.html" class="home-link">← Back to Home</a>
+  </header>
+
+  <div class="auth-container">
+    <div class="auth-box">
+      <h1 class="logo">TourEdo</h1>
+      <h2>Forgot Password?</h2>
+      <p>No worries! Enter your email and we’ll send you a reset link.</p>
+
+      <!-- FIXED BUG: Added the missing message container element -->
+      <div id="form-message" class="hidden-message"></div>
+
+      <form class="auth-form" id="forgot-password-form">
+        <label for="email">Email Address</label>
+        <!-- Added name attribute and auto-complete for accessibility -->
+        <input type="email" id="email" name="email" placeholder="Enter your email" required autocomplete="email">
+
+        <button type="submit" class="signup-btn" id="submit-btn">Send Reset Link</button>
+      </form>
+
+      <p class="switch"><a href="login.html">← Back to Login</a></p>
+    </div>
+  </div>
+
+  <script>
+(function initForgotPassword() {
+  const form = document.getElementById("forgot-password-form");
+  const messageBox = document.getElementById("form-message");
+  const submitBtn = document.getElementById("submit-btn");
+
+  form.addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const email = document.getElementById("email").value.trim();
+
+    // Reset message state
+    messageBox.className = "hidden-message";
+    messageBox.textContent = "";
+
+    // Show loading state
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending Link...";
+
+    try {
+      /*
+        The local backend accepts this request and can be connected to an email provider later.
+      */
+      const resetApiUrl = "http://localhost:7000/api/auth/forgot-password";
+
+      const response = await fetch(resetApiUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email })
+      });
+
+      if (!response.ok) {
+        if (response.status === 404) {
+          throw new Error("No account found with that email.");
+        }
+        throw new Error("Password reset request failed. Please try again.");
+      }
+
+      // Success feedback
+      messageBox.textContent = `📧 A reset link has been sent to ${email}. Please check your inbox.`;
+      messageBox.className = "message-box success";
+      messageBox.style.display = "block";
+
+    } catch (error) {
+      // Error feedback
+      messageBox.textContent = `❌ Error: ${error.message}`;
+      messageBox.className = "message-box error";
+      messageBox.style.display = "block";
+
+      // Restore button state
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Send Reset Link";
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

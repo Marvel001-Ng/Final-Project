@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TourEdo - Guide Dashboard</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="dashboard-layout">
+    <aside class="sidebar">
+      <h3>TourEdo Guide</h3>
+      <ul class="sidebar-menu">
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="#overview" class="active">📊 Overview</a></li>
+        <li><a href="#tours">🧭 My Tours</a></li>
+        <li><a href="#bookings">📅 Client Bookings</a></li>
+        <li><a href="#reviews">⭐ Reviews</a></li>
+      </ul>
+      <button class="logout-btn" id="logout-trigger">Sign Out</button>
+    </aside>
+
+    <main class="main-content">
+      <header class="dashboard-header">
+        <div>
+          <h1>Welcome, Local Guide</h1>
+          <p>Manage tours, client schedules, and your local travel reputation.</p>
+        </div>
+        <div class="feature">Account: Guide</div>
+      </header>
+
+      <div class="stats-row">
+        <div class="stat-box">
+          <h4>Active Tours</h4>
+          <p>06</p>
+        </div>
+        <div class="stat-box">
+          <h4>Bookings</h4>
+          <p>42</p>
+        </div>
+        <div class="stat-box">
+          <h4>Rating</h4>
+          <p>4.9</p>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <section class="dashboard-card" id="tours">
+          <h2>🧭 Upcoming guided experiences</h2>
+          <ul style="list-style:none; display:flex; flex-direction:column; gap:0.9rem; margin-top:1rem;">
+            <li><strong>Benin Heritage Trail</strong> — Saturday, 9:00 AM</li>
+            <li><strong>Okomu Nature Walk</strong> — Sunday, 7:30 AM</li>
+            <li><strong>Ososo Hills Adventure</strong> — Next Friday, 6:00 AM</li>
+          </ul>
+        </section>
+
+        <section class="dashboard-card" id="bookings">
+          <h2>📅 Client bookings</h2>
+          <ul style="list-style:none; display:flex; flex-direction:column; gap:0.9rem; margin-top:1rem;">
+            <li><strong>Grace A.</strong> — 2-day culture tour</li>
+            <li><strong>Daniel T.</strong> — City heritage walk</li>
+            <li><strong>Mary K.</strong> — Wildlife day trip</li>
+          </ul>
+        </section>
+
+        <section class="dashboard-card" id="reviews">
+          <h2>⭐ Reviews</h2>
+          <p style="margin-top:1rem; color:#4a5b55;">“Our guide made the entire trip memorable and easy to follow.”</p>
+          <p style="margin-top:0.8rem; color:#4a5b55;">“Excellent local knowledge, warm personality, and great itinerary choices.”</p>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    (function initGuideDashboard() {
+      const token = localStorage.getItem('authToken');
+      const role = localStorage.getItem('userRole');
+
+      if (!token || role !== 'guide') {
+        alert('Guide access is required to view this dashboard.');
+        window.location.href = 'login.html';
+        return;
+      }
+
+      const logoutTrigger = document.getElementById('logout-trigger');
+      if (logoutTrigger) {
+        logoutTrigger.addEventListener('click', () => {
+          localStorage.removeItem('authToken');
+          localStorage.removeItem('userRole');
+          localStorage.removeItem('userName');
+          window.location.href = 'login.html';
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

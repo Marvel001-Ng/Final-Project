@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TourEdo - Attraction Details</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <a class="logo" href="index.html">TourEdo</a>
+      <ul class="nav-links">
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="trip-planner.html">My Trip Planner</a></li>
+        <li><a href="#all-attractions" aria-current="page">Attractions</a></li>
+        <li><a href="hotel.html">Hotels</a></li>
+        <li><a href="event.html">Events</a></li>
+      </ul>
+      <div class="auth-buttons">
+        <a class="login" href="login.html">Login</a>
+        <a class="signup" href="signup.html">Sign Up</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="details-container attraction-page">
+    <div class="back-btn-row"><a href="index.html#attractions" class="home-link">← Back to attractions</a></div>
+
+    <section class="attraction-directory" id="all-attractions">
+      <div class="section-heading-row">
+        <div>
+          <span class="eyebrow">Explore Edo</span>
+          <h2>All attractions</h2>
+        </div>
+        <p class="result-count">4 destinations</p>
+      </div>
+      <div class="directory-grid attraction-grid">
+        <article class="directory-card attraction-card" data-attraction-id="okomu" tabindex="0" role="button" aria-label="View Okomu National Park details">
+          <img src="../assets/okomu-national-park/sign-from-ticket-office-okomu-national-park-edo.jpg" alt="Okomu National Park sign">
+          <div class="directory-card-body">
+            <div class="card-topline"><span class="tag">Nature</span><span class="rating">★ 4.8</span></div>
+            <h3>Okomu National Park</h3>
+            <p>Rainforest trails, wildlife, and a remarkable treehouse canopy walk.</p>
+            <a class="card-action attraction-link" data-attraction-id="okomu" href="#attraction-detail">Explore destination →</a>
+          </div>
+        </article>
+        <article class="directory-card attraction-card" data-attraction-id="ososo" tabindex="0" role="button" aria-label="View Ososo Hills details">
+          <img src="../assets/ososo-hill/ososo-hill-edo.png" alt="Ososo Hills">
+          <div class="directory-card-body">
+            <div class="card-topline"><span class="tag">Adventure</span><span class="rating">★ 4.6</span></div>
+            <h3>Ososo Hills</h3>
+            <p>Granite peaks, highland air, and wide views for hikers and photographers.</p>
+            <a class="card-action attraction-link" data-attraction-id="ososo" href="#attraction-detail">Explore destination →</a>
+          </div>
+        </article>
+        <article class="directory-card attraction-card" data-attraction-id="ogba" tabindex="0" role="button" aria-label="View Ogba Zoo and Nature Park details">
+          <img src="../assets/ogba-zoo/ogba-zoo-and-park.png" alt="Ogba Zoo and Nature Park">
+          <div class="directory-card-body">
+            <div class="card-topline"><span class="tag">Family day</span><span class="rating">★ 4.7</span></div>
+            <h3>Ogba Zoo &amp; Nature Park</h3>
+            <p>An easy city escape with animals, shaded paths, and picnic spaces.</p>
+            <a class="card-action attraction-link" data-attraction-id="ogba" href="#attraction-detail">Explore destination →</a>
+          </div>
+        </article>
+        <article class="directory-card attraction-card" data-attraction-id="emowaa" tabindex="0" role="button" aria-label="View Edo Museum of West African Art details">
+          <img src="../assets/national-museum-edo/entrance-with-wall-mural.jpg" alt="Edo Museum of West African Art entrance">
+          <div class="directory-card-body">
+            <div class="card-topline"><span class="tag">Culture</span><span class="rating">★ 4.5</span></div>
+            <h3>Edo Museum of West African Art</h3>
+            <p>Benin history, bronzes, murals, and contemporary West African art.</p>
+            <a class="card-action attraction-link" data-attraction-id="emowaa" href="#attraction-detail">Explore destination →</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="attraction-heading" id="attraction-detail">
+      <div>
+        <span class="eyebrow">Destination guide</span>
+        <h1 id="attraction-title">Loading attraction...</h1>
+        <p class="attraction-dek">A closer look at one of Edo State's places worth making time for.</p>
+      </div>
+      <div class="info-strip" aria-label="Attraction information">
+        <span class="info-badge" id="attraction-rating">⭐ --</span>
+        <span class="info-badge" id="attraction-location">📍 Loading location...</span>
+        <span class="info-badge" id="attraction-hours">⏰ Hours: --</span>
+      </div>
+    </section>
+
+    <section class="main-showcase-grid attraction-showcase">
+      <div class="content-block">
+        <div class="slider-frame" aria-label="Attraction photo gallery">
+          <button class="slider-arrow arrow-left" id="prev-slide-btn" type="button" aria-label="Previous image">←</button>
+          <div class="slider-track" id="slider-track-container"></div>
+          <button class="slider-arrow arrow-right" id="next-slide-btn" type="button" aria-label="Next image">→</button>
+          <div class="slider-dots" id="slider-dots-container"></div>
+        </div>
+        <div class="gallery-caption"><span>TourEdo field notes</span><span>Swipe or use the arrows to explore</span></div>
+
+        <div class="overview-block">
+          <span class="eyebrow">Why go</span>
+          <h2>More than a stop on the map.</h2>
+          <p id="attraction-desc">Loading the story of this destination...</p>
+        </div>
+      </div>
+
+      <aside class="meta-content-card booking-panel">
+        <span class="eyebrow">Plan your visit</span>
+        <h2>Make the day yours.</h2>
+        <p class="meta-card-subtext">Reserve your entry pass and keep this destination in your trip plan.</p>
+        <div class="booking-detail"><span>Entry from</span><strong class="pricing-tag" id="attraction-price">₦0.00</strong></div>
+        <button class="booking-btn" id="book-now-trigger" type="button">Book an entry pass <span aria-hidden="true">→</span></button>
+        <a class="booking-secondary-link" href="trip-planner.html">Add to my trip planner</a>
+      </aside>
+    </section>
+
+    <section class="reviews-section">
+      <div class="section-heading-row">
+        <div><span class="eyebrow">From the trail</span><h2 class="reviews-heading">Traveler notes</h2></div>
+        <span class="result-count">Verified visitor reviews</span>
+      </div>
+      <div id="reviews-list-container"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 TourEdo. All rights reserved.</p>
+    <p>Contact: +234 (0) 703 625 4567 | info@touredo.com</p>
+  </footer>
+
+  <script>
+    const attractionDatabase = {
+      okomu: {
+        title: "Okomu National Park",
+        location: "Ovia South-West, Edo State",
+        hours: "8:00 AM - 6:00 PM",
+        rating: "⭐ 4.8 (124 reviews)",
+        price: "₦5,000",
+        desc: "Okomu National Park is one of southwestern Nigeria's last great rainforest enclaves. Its wildlife preserve shelters white-throated monkeys, forest elephants, and diverse birdlife, while the towering treehouse canopy walk opens a remarkable view over the wild terrain.",
+        images: [
+          "../assets/okomu-national-park/sign-from-ticket-office-okomu-national-park-edo.jpg",
+          "../assets/okomu-national-park/tree-house-okumo-park-edo.jpg",
+          "../assets/okomu-national-park/view-from-tree-house-okomu-national-park-edo.jpg"
+        ],
+        reviews: [
+          { user: "Osas K.", text: "The treehouse experience is outstanding. A true ecological marvel.", score: "⭐⭐⭐⭐⭐" },
+          { user: "Blessing I.", text: "Dense, beautiful forest. Follow the instructions of the official ranger and take your time.", score: "⭐⭐⭐⭐" }
+        ]
+      },
+      ososo: {
+        title: "Ososo Hills",
+        location: "Akoko-Edo, Edo State",
+        hours: "7:00 AM - 6:00 PM",
+        rating: "⭐ 4.6 (98 reviews)",
+        price: "₦3,500",
+        desc: "Ososo Hills stretches across dramatic granite peaks and wide valley views. The highland setting is made for mountaineering, trekking, and nature photography, offering a crisp escape from the pace and humidity of the city.",
+        images: [
+          "../assets/ososo-hill/ososo-hill-edo.png",
+          "../assets/ososo-hill/Beautiful_hole_in_the_rock_at_Ososo-edo.jpg",
+          "../assets/ososo-hill/ososo-hill-view-from-afar-edo.png"
+        ],
+        reviews: [{ user: "Tunde A.", text: "Stunning views from the peaks. The climb was intense but rewarding.", score: "⭐⭐⭐⭐⭐" }]
+      },
+      ogba: {
+        title: "Ogba Zoo & Nature Park",
+        location: "Benin City, Edo State",
+        hours: "9:00 AM - 6:00 PM",
+        rating: "⭐ 4.7 (210 reviews)",
+        price: "₦2,000",
+        desc: "Ogba Zoo is an urban nature escape on the edge of Benin City, with animal enclosures, lush picnic spaces, shaded paths, and family-friendly recreation areas for an easy weekend outing.",
+        images: ["../assets/ogba-zoo/ogba-zoo-and-park.png"],
+        reviews: [
+          { user: "Efe O.", text: "A great family getaway inside the city. The children loved seeing the animals.", score: "⭐⭐⭐⭐" },
+          { user: "Sarah M.", text: "Peaceful environment with deep botanical foliage and well-kept trails.", score: "⭐⭐⭐⭐⭐" }
+        ]
+      },
+      emowaa: {
+        title: "Edo Museum of West African Art",
+        location: "Airport Road, Benin City",
+        hours: "10:00 AM - 5:00 PM",
+        rating: "⭐ 4.5 (85 reviews)",
+        price: "₦1,500",
+        desc: "The Edo Museum of West African Art preserves and interprets the region's artistic legacy through bronzes, wall murals, archaeological artifacts, and contemporary installations that connect royal history with living creative practice.",
+        images: [
+          "../assets/national-museum-edo/entrance-with-wall-mural.jpg",
+          "../assets/national-museum-edo/inside-the-exhibit-gallery-national-museum-edo.jpg",
+          "../assets/national-museum-edo/inside-the-exhibit-gallery-national-musuem-2.jpg"
+        ],
+        reviews: [{ user: "Chidi N.", text: "An absolute masterpiece of Benin craftsmanship and history. Truly moving.", score: "⭐⭐⭐⭐⭐" }]
+      }
+    };
+
+    let currentSlideIndex = 0;
+    let totalSlidesCount = 0;
+
+    function shiftToSlideIndex(targetIndex) {
+      if (totalSlidesCount < 1 || targetIndex < 0 || targetIndex >= totalSlidesCount) return;
+      currentSlideIndex = targetIndex;
+      document.getElementById("slider-track-container").style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+      document.querySelectorAll(".dot").forEach((dot, index) => dot.classList.toggle("active", index === currentSlideIndex));
+    }
+
+    function initCarouselSlider(imageUrls) {
+      const track = document.getElementById("slider-track-container");
+      const dots = document.getElementById("slider-dots-container");
+      currentSlideIndex = 0;
+      totalSlidesCount = imageUrls.length;
+      track.innerHTML = "";
+      dots.innerHTML = "";
+
+      const previousButton = document.getElementById("prev-slide-btn");
+      const nextButton = document.getElementById("next-slide-btn");
+      const hasMultipleSlides = totalSlidesCount > 1;
+      previousButton.disabled = !hasMultipleSlides;
+      nextButton.disabled = !hasMultipleSlides;
+      previousButton.setAttribute("aria-hidden", String(!hasMultipleSlides));
+      nextButton.setAttribute("aria-hidden", String(!hasMultipleSlides));
+
+      if (!totalSlidesCount) {
+        track.innerHTML = "<p class=\"slider-empty\">No gallery photos available.</p>";
+        return;
+      }
+
+      imageUrls.forEach((url, index) => {
+        const image = document.createElement("img");
+        image.src = url;
+        image.alt = "Destination gallery image";
+        image.className = "slide-photo";
+        image.addEventListener("error", () => {
+          image.alt = "Gallery image unavailable";
+          image.classList.add("slide-photo-error");
+        });
+        track.appendChild(image);
+
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = `dot ${index === 0 ? "active" : ""}`;
+        dot.setAttribute("aria-label", `Show image ${index + 1}`);
+        dot.addEventListener("click", () => shiftToSlideIndex(index));
+        dots.appendChild(dot);
+      });
+    }
+
+    document.getElementById("prev-slide-btn").addEventListener("click", () => {
+      if (totalSlidesCount > 1) shiftToSlideIndex((currentSlideIndex - 1 + totalSlidesCount) % totalSlidesCount);
+    });
+    document.getElementById("next-slide-btn").addEventListener("click", () => {
+      if (totalSlidesCount > 1) shiftToSlideIndex((currentSlideIndex + 1) % totalSlidesCount);
+    });
+
+    function loadAttractionContext(attractionId, shouldScroll = false) {
+      const data = attractionDatabase[attractionId] || attractionDatabase.okomu;
+      document.getElementById("attraction-title").textContent = data.title;
+      document.getElementById("attraction-location").textContent = `📍 ${data.location}`;
+      document.getElementById("attraction-hours").textContent = `⏰ Hours: ${data.hours}`;
+      document.getElementById("attraction-rating").textContent = data.rating;
+      document.getElementById("attraction-price").textContent = data.price;
+      document.getElementById("attraction-desc").textContent = data.desc;
+      initCarouselSlider(data.images);
+
+      const reviewsContainer = document.getElementById("reviews-list-container");
+      reviewsContainer.innerHTML = data.reviews.map((review) => `
+        <article class="review-item">
+          <strong>${review.score}</strong>
+          <p class="review-text">"${review.text}"</p>
+          <div class="review-meta"><span>By ${review.user}</span><span>Verified visitor</span></div>
+        </article>
+      `).join("");
+
+      if (shouldScroll) {
+        document.getElementById("attraction-detail").scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+
+    document.querySelectorAll(".attraction-link").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        const attractionId = link.dataset.attractionId;
+        history.pushState({}, "", `attraction-details.html?id=${attractionId}`);
+        loadAttractionContext(attractionId, true);
+      });
+    });
+
+    document.querySelectorAll(".attraction-card").forEach((card) => {
+      function openCard() {
+        const attractionId = card.dataset.attractionId;
+        history.pushState({}, "", `attraction-details.html?id=${attractionId}`);
+        loadAttractionContext(attractionId, true);
+      }
+
+      card.addEventListener("click", openCard);
+      card.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openCard();
+        }
+      });
+    });
+
+    window.addEventListener("popstate", () => {
+      const attractionId = new URLSearchParams(window.location.search).get("id") || "okomu";
+      loadAttractionContext(attractionId);
+    });
+
+    loadAttractionContext(new URLSearchParams(window.location.search).get("id") || "okomu");
+
+    document.getElementById("book-now-trigger").addEventListener("click", () => {
+      if (!localStorage.getItem("authToken")) {
+        alert("🔐 Authentication required. Please sign in to book your package pass.");
+        window.location.href = "login.html";
+      } else {
+        alert("🎉 Package initialized! Forwarding details to transaction processing.");
+      }
+    });
+  </script>
+</body>
+</html>

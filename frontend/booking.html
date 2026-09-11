@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TourEdo - Book a Trip</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <a class="logo" href="index.html">TourEdo</a>
+      <ul class="nav-links">
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="trip-planner.html">Trip Planner</a></li>
+        <li><a href="attraction-details.html">Attractions</a></li>
+        <li><a href="hotel.html">Hotels</a></li>
+        <li><a href="event.html">Events</a></li>
+      </ul>
+      <div class="auth-buttons">
+        <a class="login" href="login.html">Login</a>
+        <a class="signup" href="signup.html">Sign Up</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="details-container">
+    <div class="back-btn-row">
+      <a href="index.html" class="home-link">← Back to home</a>
+    </div>
+
+    <section class="planner-panel" style="max-width: 760px; margin: 0 auto;">
+      <div class="panel-heading">
+        <span class="step-number">01</span>
+        <div>
+          <span class="eyebrow">Secure your trip</span>
+          <h2>Book your Edo experience</h2>
+        </div>
+      </div>
+
+      <div id="booking-message" class="hidden-message"></div>
+
+      <form id="booking-form" class="auth-form">
+        <div class="form-group">
+          <label for="booking-type">Booking type</label>
+          <select id="booking-type" class="form-dropdown" required>
+            <option value="attraction">Attraction</option>
+            <option value="hotel">Hotel</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="item-id">Select item</label>
+          <select id="item-id" class="form-dropdown" required></select>
+        </div>
+
+        <div class="planner-fields-row">
+          <div class="form-group">
+            <label for="start-date">Start date</label>
+            <input id="start-date" type="date" required />
+          </div>
+          <div class="form-group">
+            <label for="guest-count">Guests</label>
+            <input id="guest-count" type="number" min="1" value="1" required />
+          </div>
+        </div>
+
+        <button type="submit" class="signup-btn">Confirm booking</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 TourEdo. All rights reserved.</p>
+    <p>Contact: +234 (0) 703 625 4567 | info@touredo.com</p>
+  </footer>
+
+  <script>
+    const apiBase = 'http://localhost:7000';
+    const bookingType = document.getElementById('booking-type');
+    const itemId = document.getElementById('item-id');
+    const bookingForm = document.getElementById('booking-form');
+    const messageBox = document.getElementById('booking-message');
+
+    function setMessage(text, type) {
+      messageBox.textContent = text;
+      messageBox.className = type === 'success' ? 'message-box success' : 'message-box error';
+      messageBox.style.display = 'block';
+    }
+
+    async function loadOptions() {
+      try {
+        const attractionResponse = await fetch(`${apiBase}/api/attractions`);
+        const hotelResponse = await fetch(`${apiBase}/api/hotels`);
+        const attractions = attractionResponse.ok ? await attractionResponse.json() : [];
+        const hotels = hotelResponse.ok ? await hotelResponse.json() : [];
+
+        const updateItems = () => {
+          const selectedType = bookingType.value;
+          const list = selectedType === 'hotel' ? hotels : attractions;
+          itemId.innerHTML = list.length
+            ? list.map((entry) => `<option value="${entry.id}">${entry.name}</option>`).join('')
+            : '<option value="">No items available</option>';
+        };
+
+        bookingType.addEventListener('change', updateItems);
+        updateItems();
+      } catch (error) {
+        itemId.innerHTML = '<option value="">Unable to load items</option>';
+      }
+    }
+
+    bookingForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const token = localStorage.getItem('authToken');
+
+      if (!token) {
+        setMessage('Please log in before making a booking.', 'error');
+        window.location.href = 'login.html';
+        return;
+      }
+
+      const payload = {
+        type: bookingType.value,
+        itemId: itemId.value,
+        startDate: document.getElementById('start-date').value,
+        guests: Number(document.getElementById('guest-count').value || 1)
+      };
+
+      try {
+        const response = await fetch(`${apiBase}/api/bookings`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.message || 'Booking failed.');
+        }
+
+        setMessage('Booking confirmed successfully. Your reservation is now in the system.', 'success');
+        bookingForm.reset();
+        document.getElementById('guest-count').value = 1;
+      } catch (error) {
+        setMessage(error.message || 'Booking failed.', 'error');
+      }
+    });
+
+    loadOptions();
+  </script>
+</body>
+</html>

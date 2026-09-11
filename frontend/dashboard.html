@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TourEdo - Tourist Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Protected Layout Template Container -->
+  <div class="dashboard-layout">
+    
+    <!-- Sidebar Navigation Controls -->
+    <aside class="sidebar">
+      <h3>TourEdo Panel</h3>
+      <ul class="sidebar-menu">
+        <li><a href="index.html">🏠 Home Page</a></li>
+        <li><a href="#bookings">📅 My Bookings</a></li>
+        <li><a href="#saved">❤️ Saved Places</a></li>
+        <li><a href="#reviews">⭐ My Reviews</a></li>
+      </ul>
+      <button class="logout-btn" id="logout-trigger">Sign Out</button>
+    </aside>
+
+    <!-- Core Functional View Content Area -->
+    <main class="main-content">
+      <header class="dashboard-header">
+        <div>
+          <h1>Welcome Back, Explorer!</h1>
+          <p>Manage your upcoming trips, saved locations, and tour packages.</p>
+        </div>
+        <div class="feature">Account: Tourist</div>
+      </header>
+
+      <div class="dashboard-grid">
+        <!-- Upcoming Bookings Segment -->
+        <section class="dashboard-card" id="bookings" style="padding:0;">
+          <h2 style="text-align:left; margin-bottom:1rem; font-size:1.4rem;">📅 Upcoming Bookings</h2>
+          <div style="border-left: 4px solid #f1c40f; padding-left: 1rem; margin-bottom: 1rem;">
+            <h4>Okomu National Park Weekend Tour</h4>
+            <p style="font-size:0.9rem; color:#666;">Status: Paid | Date: Oct 12, 2026</p>
+          </div>
+        </section>
+
+        <!-- Saved Places Block Segment -->
+        <section class="dashboard-card" id="saved" style="padding:0;">
+          <h2 style="text-align:left; margin-bottom:1rem; font-size:1.4rem;">❤️ Saved Places</h2>
+          <ul style="list-style-type: none; display:flex; flex-direction:column; gap:0.5rem;">
+            <li>⛰️ Ososo Hills, Akoko-Edo</li>
+            <li>🦁 Ogba Zoo, Benin City</li>
+          </ul>
+        </section>
+      </div>
+    </main>
+
+  </div>
+
+  <script>
+(function initDashboard() {
+  const storedToken = localStorage.getItem("authToken");
+  const userRole = localStorage.getItem("userRole") || "tourist";
+  const userName = localStorage.getItem("userName") || "Explorer";
+
+  if (!storedToken) {
+    alert("🔒 Access Denied! Please log in first.");
+    window.location.href = "login.html";
+    return;
+  }
+
+  // Update greeting and role dynamically
+  document.querySelector(".dashboard-header h1").textContent = `Welcome Back, ${userName}!`;
+  document.querySelector(".feature").textContent = `Account: ${userRole.charAt(0).toUpperCase() + userRole.slice(1)}`;
+
+  // Role-based sidebar customization
+  const sidebarMenu = document.querySelector(".sidebar-menu");
+  if (userRole === "guide") {
+    sidebarMenu.innerHTML = `
+      <li><a href="index.html">🏠 Home Page</a></li>
+      <li><a href="#tours">🗺️ My Tours</a></li>
+      <li><a href="#bookings">📅 Client Bookings</a></li>
+      <li><a href="#reviews">⭐ My Reviews</a></li>
+    `;
+  } else if (userRole === "admin") {
+    sidebarMenu.innerHTML = `
+      <li><a href="index.html">🏠 Home Page</a></li>
+      <li><a href="#users">👥 Manage Users</a></li>
+      <li><a href="#reports">📊 Reports</a></li>
+      <li><a href="#settings">⚙️ System Settings</a></li>
+    `;
+  } else {
+    // Tourist default
+    sidebarMenu.innerHTML = `
+      <li><a href="index.html">🏠 Home Page</a></li>
+      <li><a href="#bookings">📅 My Bookings</a></li>
+      <li><a href="#saved">❤️ Saved Places</a></li>
+      <li><a href="#reviews">⭐ My Reviews</a></li>
+    `;
+  }
+
+  // Logout handling
+  const logoutBtn = document.getElementById("logout-trigger");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+      localStorage.removeItem("authToken");
+      localStorage.removeItem("userRole");
+      localStorage.removeItem("userName");
+      alert("Logged out successfully.");
+      window.location.href = "login.html";
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
