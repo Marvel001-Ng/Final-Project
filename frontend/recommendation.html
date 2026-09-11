@@ -68,7 +68,9 @@
   </main>
 
   <script>
-    const apiBase = 'http://localhost:7000';
+    const apiBase = window.location.hostname === 'localhost'
+      ? 'http://localhost:7000'
+      : '';
     const form = document.getElementById('recommendation-form');
     const result = document.getElementById('recommendation-result');
 

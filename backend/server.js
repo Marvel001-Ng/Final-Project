@@ -4,6 +4,7 @@ const express = require("express");
 const cors = require("cors");
 const fs = require("node:fs");
 const path = require("node:path");
+const serverless = require("serverless-http");
 
 const { connectDB } = require("./config/db");
 const { ensureAdminAccount } = require("./data/store");
@@ -65,4 +66,10 @@ async function start() {
   });
 }
 
-start();
+if (require.main === module) {
+  start();
+}
+
+const handler = serverless(app);
+module.exports = handler;
+module.exports.handler = handler;

@@ -34,6 +34,10 @@
 
   <script>
 (function initForgotPassword() {
+  const API_BASE = window.location.hostname === "localhost"
+    ? "http://localhost:7000"
+    : "";
+
   const form = document.getElementById("forgot-password-form");
   const messageBox = document.getElementById("form-message");
   const submitBtn = document.getElementById("submit-btn");
@@ -55,7 +59,7 @@
       /*
         The local backend accepts this request and can be connected to an email provider later.
       */
-      const resetApiUrl = "http://localhost:7000/api/auth/forgot-password";
+      const resetApiUrl = `${API_BASE}/api/auth/forgot-password`;
 
       const response = await fetch(resetApiUrl, {
         method: "POST",

@@ -76,7 +76,9 @@
   </footer>
 
   <script>
-    const apiBase = 'http://localhost:7000';
+    const apiBase = window.location.hostname === 'localhost'
+      ? 'http://localhost:7000'
+      : '';
     const bookingType = document.getElementById('booking-type');
     const itemId = document.getElementById('item-id');
     const bookingForm = document.getElementById('booking-form');
